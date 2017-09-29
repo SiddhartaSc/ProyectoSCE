@@ -21,10 +21,15 @@ public class ServidorDeDisparo implements IServDisparo
     boolean banCalc = false;
     
     double dblDeltaTMedia, dblDeltaTDesvStd;
+
+    @Override
+    public synchronized long getCuantosCltes() {
+        return cuantosCltes;
+    }
     
     
     @Override
-    public synchronized long quienSoy( )
+    public synchronized long quienSoy()
     {
         return ++cuantosCltes;
     }

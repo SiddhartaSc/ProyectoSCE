@@ -21,7 +21,7 @@ public class Client
        long i,n,t0,t1,dt;
        String response;
        
-       n = 2000;
+       n = 100;
        
        try 
         {
@@ -32,13 +32,15 @@ public class Client
              System.out.println("Cliente " + lngQuienSoy + " faltan " + lngCuantosMilisFaltan  + " milisegundos");
              sumDeltaT  = 0;
              sumDeltaT2 = 0;
-             Hello stub = (Hello) registry.lookup("Hello");
+             //Hello stub = (Hello) registry.lookup("Hello");
              Thread.currentThread().sleep(lngCuantosMilisFaltan);
              
              for(i= 0; i < n; i++ )
              {
                t0 = System.currentTimeMillis();  
-               response = stub.sayHello();
+               //response = stub.sayHello();
+               ClsMensaje clm = agregaAlumnoCls("14"+i, "Mau"+i, "M"+i, "Chingon"+i);
+               System.out.println("int: " + clm.getIntRes() + " bool: " + clm.isBlnRes() + " string: " + clm.getStrCadenaResultado());
                t1 = System.currentTimeMillis();
                dt = t1 - t0;
                sumDeltaT  += dt;
@@ -53,7 +55,7 @@ public class Client
                    if( dt < dtMin ) dtMin = dt;
                    if( dt > dtMax ) dtMax = dt;
                }
-               System.out.println("Clte " + lngQuienSoy + ": " + response);
+               //System.out.println("Clte " + lngQuienSoy + ": " + response);
              }
              servDisparo.acumula(sumDeltaT, sumDeltaT2, n, dtMax, dtMin);
           } 
@@ -62,6 +64,12 @@ public class Client
               System.err.println("Client exception: " + e.toString());
                e.printStackTrace();
            }
+    }
+
+    private static ClsMensaje agregaAlumnoCls(java.lang.String clave, java.lang.String nombre, java.lang.String apPaterno, java.lang.String apMaterno) {
+        example.hello.GestorAlumnos_Service service = new example.hello.GestorAlumnos_Service();
+        example.hello.GestorAlumnos port = service.getGestorAlumnosPort();
+        return port.agregaAlumnoCls(clave, nombre, apPaterno, apMaterno);
     }
 }
 //================================================================

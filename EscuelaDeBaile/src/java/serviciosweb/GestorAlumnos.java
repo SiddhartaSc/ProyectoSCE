@@ -70,16 +70,17 @@ public class GestorAlumnos {
         if(gestor.conectado()){
             String arrCampos[] = {"clvAlumno", "nombre", "apPaterno", "apMaterno"};
             String arrDatos[] = {clave, nombre, apPaterno, apMaterno};
-            gestor.altaAlumno(arrCampos, arrDatos);
-            
-            ClsMensaje clm = new ClsMensaje(true,1,clave+nombre+apPaterno+apMaterno);
-
+            ClsMensaje clm;
+            if(gestor.altaAlumno(arrCampos, arrDatos))         
+                clm = new ClsMensaje(true,1,clave+nombre+apPaterno+apMaterno);
+            else
+                clm = new ClsMensaje(false,2,clave+nombre+apPaterno+apMaterno);
             
             return clm;
         }
         else{
             
-            ClsMensaje clm = new ClsMensaje(false,0,"no furula prro");
+            ClsMensaje clm = new ClsMensaje(false,0,"no funciona conexión");
             
             return clm;
         }
